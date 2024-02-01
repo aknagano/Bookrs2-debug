@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   get "home/top"=>"homes#top"
   devise_for :users
   
-  resources :books, only: [:index,:show,:edit,:create,:destroy,:update]
+  resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
+    resource :favorite, only: [:create, :destroy]
+    resources :post_comments, only: [:create, :destroy]
+  end
+  
   resources :users, only: [:index,:show,:edit,:update]
   
   root to: "homes#top"
